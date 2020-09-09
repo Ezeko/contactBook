@@ -7,11 +7,10 @@ void main() {
   runApp(MaterialApp(
     theme: ThemeData(
           primarySwatch: Colors.blue,
-          primaryTextTheme: TextTheme(
-            headline6: TextStyle(
-              color: Colors.white,
-            )
-          )
+         primaryIconTheme: IconThemeData(
+           color: Colors.purple[800],
+         )
+        
         ),
     initialRoute: '/',
     routes: {

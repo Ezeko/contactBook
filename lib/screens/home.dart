@@ -26,7 +26,19 @@ class _HomeState extends State<Home> {
           );
         }
         ),
-        floatingActionButton: FloatingActionButton(onPressed: null),
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            showModalBottomSheet(
+              context: context, 
+              backgroundColor: Colors.transparent,
+              builder: (context) => Scaffold(
+              
+              )
+              );
+              
+          },
+          child: Icon(Icons.add),
+          ),
         
         );
   }
