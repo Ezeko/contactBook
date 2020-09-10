@@ -1,3 +1,4 @@
+import 'package:contactBook/screens/addContact.dart';
 import 'package:contactBook/screens/detail.dart';
 import 'package:contactBook/screens/home.dart';
 import 'package:contactBook/screens/loading.dart';
@@ -16,7 +17,8 @@ void main() {
     routes: {
       '/': (context) => Loading(),
       '/home': (context) => Home(),
-      '/detail': (context) => Detail()
+      '/detail': (context) => Detail(),
+      '/add': (context) => AddContact(),
     },
   ));
 }

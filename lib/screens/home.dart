@@ -1,3 +1,4 @@
+import 'package:contactBook/components/contactForm.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -31,97 +32,40 @@ class _HomeState extends State<Home> {
               ),
             );
           }),
-
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
-          showModalBottomSheet(
-              context: context,
-              backgroundColor: Colors.transparent,
-              builder: (context) => Card(
-                    child: Scaffold(
-                        body: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Expanded(
-                                                      child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              //crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  'Add Contact Here',
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.blueGrey,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Form(
-                                  child: Column(
-                                    children: <Widget>[
-                                      TextFormField(
-                                          autocorrect: true,
-                                          autofocus: true,
-                                          textAlignVertical: TextAlignVertical.top,
-                                          obscureText: false,
-                                          enableSuggestions: true,
-                                          keyboardType: TextInputType.name,
-                                          autofillHints: null,
-                                          textCapitalization: TextCapitalization.sentences,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            labelText: 'Name',
-
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10.0,
-                                        ),
-                                        TextFormField(
-                                          textAlignVertical: TextAlignVertical.top,
-                                          obscureText: false,
-                                          autofillHints: null,
-                                          keyboardType: TextInputType.streetAddress,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            labelText: 'Address',
-
-                                          ),
-                                        ),
-
-                                        SizedBox(
-                                          height: 10.0,
-                                        ),
-
-                                        TextFormField(
-                                          textAlignVertical: TextAlignVertical.top,
-                                          keyboardType: TextInputType.phone,
-                                          autocorrect: true,
-                                          autofillHints: null,
-                                          maxLengthEnforced: true,
-                                          maxLength: 13,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            labelText: '070123456789'
-                                          ),
-                                        )
-                              ]
-                            )
-                                  
-                              ),
-                              ],
-                            ),
-                          ),
+          Navigator.pushNamed(context, '/add');
+          /*showModalBottomSheet(
+            context: context,
+            backgroundColor: Colors.transparent,
+            builder: (context) => Card(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    //mainAxisSize: MainAxisSize.max,
+                    //crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        'Add Contact Here',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.blueGrey,
                         ),
-
-                    ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      ContactForm(),
+                    ],
                   ),
-
-                  );
+                ),
+              ),
+            ),
+          );*/
         },
         child: Icon(Icons.add),
       ),
