@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'dart:io';
 import '../models/contact.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+
 
 class AddContact extends StatefulWidget {
   @override
@@ -15,19 +14,16 @@ class _AddContactState extends State<AddContact> {
   void submissionHandler() async {
     if (_fbKey.currentState.saveAndValidate()) {
       Map formValue = _fbKey.currentState.value;
-      var path = Path();
-      await Hive.initFlutter();
-      //Hive..init('..${path}db');
-      //..registerAdapter(ContactAdapter());
-      var box = await Hive.openBox('testBox');
 
-      var person = Contact()
+      var box = await Hive.openBox('testBox');
+      
+      var contact = Contact()
         ..name = formValue['name']
-        ..phone = formValue['number']
+        ..phone = int.parse(formValue['number'])
         ..address = formValue['address'];
 
-      await box.put(formValue['name'], person);
-      print('path: $path');
+      await box.put(formValue['name'], contact);
+      
       print(_fbKey.currentState.value);
     } else {
       print('error');

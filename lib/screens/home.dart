@@ -8,6 +8,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    super.initState();
+    
+  }
+  @override
   Widget build(BuildContext context) {
     //var deviceSize = MediaQuery.of(context).size.height / 2;
     //print(deviceSize);
