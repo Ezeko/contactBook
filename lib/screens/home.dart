@@ -35,9 +35,13 @@ class _HomeState extends State<Home> {
                       child: Card(
                         child: ListTile(
                           //contentPadding: EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
-                          onTap: () => Navigator.pushNamed(context, '/detail'),
+                          onTap: () => Navigator.pushNamed(context, '/detail', arguments: {
+                            'name': contact.name,
+                            'address': contact.address,
+                            'phone': contact.phone,
+                          }),
                           title: Text(contact.name),
-                          subtitle: Text('0${contact.phone.toString()}'),
+                          subtitle: Text('0${contact.phone}'),
                           leading: Icon(Icons.supervised_user_circle),
                         ),
                       ),
