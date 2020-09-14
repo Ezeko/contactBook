@@ -40,9 +40,25 @@ class _HomeState extends State<Home> {
                             'address': contact.address,
                             'phone': contact.phone,
                           }),
-                          title: Text(contact.name),
-                          subtitle: Text('0${contact.phone}'),
-                          leading: Icon(Icons.supervised_user_circle),
+                          title: Text(
+                            contact.name,
+                            style: TextStyle(
+                              color: Colors.blue[700],
+                              fontSize: 19.0,
+                              fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          subtitle: Text(
+                            '0${contact.phone}',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                            ),
+                            ),
+                          leading: Icon(
+                            Icons.supervised_user_circle,
+                            size: 33.0,
+                            color: Colors.blue[900],
+                            ),
                         ),
                       ),
                     );

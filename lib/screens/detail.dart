@@ -13,14 +13,60 @@ class _DetailState extends State<Detail> {
     if (contacts == null) {
       contacts = ModalRoute.of(context).settings.arguments;
     }
-    print(contacts);
+    //print(contacts);
     //contacts = contacts.isNotEmpty ? contacts : ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
       ),
-      body: Scaffold(),
+      body: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 12.0,
+          ),
+
+          Text(
+            contacts['name'],
+            style: TextStyle(
+              fontSize: 40.0,
+              color: Colors.purple[700]
+            ),
+          ),
+
+          Divider(),
+
+          SizedBox( 
+            height: 12.0,
+          ),
+
+          Text(
+            contacts['address'],
+            style: TextStyle(
+              fontSize: 30.0,
+            ),
+          ),
+
+          SizedBox( 
+            height: 12.0,
+          ),
+
+          Text(
+            '0${contacts['phone']}',
+            style: TextStyle(
+              fontSize: 40.0,
+              color: Colors.deepPurpleAccent,
+            ),
+
+          ),
+
+          Divider(
+            height: 2.0,
+          )
+
+
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => showModalBottomSheet(
             context: context,
