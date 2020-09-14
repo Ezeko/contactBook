@@ -1,5 +1,6 @@
 //import 'package:contactBook/components/contactForm.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -7,11 +8,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    super.initState();
-    
-  }
   @override
   Widget build(BuildContext context) {
     //var deviceSize = MediaQuery.of(context).size.height / 2;
@@ -22,55 +18,40 @@ class _HomeState extends State<Home> {
         title: Text('Contact List'),
         centerTitle: true,
       ),
-      body: ListView.builder(
-          itemCount: 20,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
-              child: Card(
-                child: ListTile(
-                  //contentPadding: EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
-                  onTap: () => Navigator.pushNamed(context, '/detail'),
-                  title: Text('Contacts'),
-                  leading: Icon(Icons.supervised_user_circle),
-                ),
-              ),
-            );
-          }),
+      body: FutureBuilder(
+        future: Hive.openBox('testBox'),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            } else {
+              final contacts = Hive.box('testBox');
+              return ListView.builder(
+                  itemCount: contacts.length,
+                  itemBuilder: (context, index) {
+                    var contact = contacts.getAt(index);
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
+                      child: Card(
+                        child: ListTile(
+                          //contentPadding: EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
+                          onTap: () => Navigator.pushNamed(context, '/detail'),
+                          title: Text(contact.name),
+                          subtitle: Text('0${contact.phone.toString()}'),
+                          leading: Icon(Icons.supervised_user_circle),
+                        ),
+                      ),
+                    );
+                  });
+            }
+          } else {
+            return Scaffold();
+          }
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, '/add');
-          /*showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            builder: (context) => Card(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    //mainAxisSize: MainAxisSize.max,
-                    //crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Add Contact Here',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: Colors.blueGrey,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      ContactForm(),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );*/
         },
         child: Icon(Icons.add),
       ),

@@ -3,7 +3,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import '../models/contact.dart';
 import 'package:hive/hive.dart';
 
-
 class AddContact extends StatefulWidget {
   @override
   _AddContactState createState() => _AddContactState();
@@ -16,14 +15,14 @@ class _AddContactState extends State<AddContact> {
       Map formValue = _fbKey.currentState.value;
 
       var box = await Hive.openBox('testBox');
-      
+
       var contact = Contact()
         ..name = formValue['name']
         ..phone = int.parse(formValue['number'])
         ..address = formValue['address'];
 
-      await box.put(formValue['name'], contact);
-      
+      await box.add(contact);
+
       print(_fbKey.currentState.value);
     } else {
       print('error');
@@ -99,5 +98,11 @@ class _AddContactState extends State<AddContact> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
   }
 }
