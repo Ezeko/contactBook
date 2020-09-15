@@ -11,6 +11,16 @@ class ContactAdapter extends TypeAdapter<Contact> {
   final int typeId = 1;
 
   @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ContactAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+
+  @override
   Contact read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
@@ -33,14 +43,4 @@ class ContactAdapter extends TypeAdapter<Contact> {
       ..writeByte(2)
       ..write(obj.address);
   }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ContactAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

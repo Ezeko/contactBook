@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:load/load.dart';
 import '../models/contact.dart';
 import 'package:hive/hive.dart';
 
@@ -10,9 +9,10 @@ class AddContact extends StatefulWidget {
 }
 
 class _AddContactState extends State<AddContact> {
-  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
-  bool loading;
   var loader;
+  bool loading;
+
+  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
   void submissionHandler() async {
     if (_fbKey.currentState.saveAndValidate()) {

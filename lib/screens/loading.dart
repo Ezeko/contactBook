@@ -15,6 +15,7 @@ class _LoadingState extends State<Loading> {
       () => Navigator.pushReplacementNamed(context, '/home'),
       );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

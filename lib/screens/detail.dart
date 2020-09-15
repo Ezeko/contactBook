@@ -8,6 +8,7 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   Map contacts;
+
   @override
   Widget build(BuildContext context) {
     contacts = ModalRoute.of(context).settings.arguments;
