@@ -22,61 +22,65 @@ class _DetailState extends State<Detail> {
       appBar: AppBar(
         backgroundColor: Colors.white,
       ),
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 12.0,
-          ),
-          Text(
-            contacts['name'],
-            style: TextStyle(fontSize: 40.0, color: Colors.purple[700]),
-          ),
-          Divider(),
-          SizedBox(
-            height: 12.0,
-          ),
-          Text(
-            contacts['address'],
-            style: TextStyle(
-              fontSize: 30.0,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(28.0, 12.0,0,0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: 12.0,
             ),
-          ),
-          SizedBox(
-            height: 12.0,
-          ),
-          Text(
-            '${contacts['phone']}',
-            style: TextStyle(
-              fontSize: 40.0,
-              color: Colors.deepPurpleAccent,
+            Text(
+              contacts['name'],
+              style: TextStyle(fontSize: 40.0, color: Colors.purple[700]),
             ),
-          ),
-          SizedBox(
-            height: 12.0,
-          ),
-          RaisedButton.icon(
-            onPressed: () async {
-              var contactBox = Hive.box('testBox');
-               contactBox
-                ..deleteAt(contacts['index']);
-              Navigator.pop(context, {
-                'changed': true
-              });
-            },
-            icon: Icon(
-              Icons.delete,
-              color: Colors.purple[300],
+            Divider(),
+            SizedBox(
+              height: 12.0,
             ),
-            label: Text(''),
-            color: Colors.white,
-          ),
-          SizedBox(
-            height: 12.0,
-          ),
-          Divider(
-            height: 2.0,
-          ),
-        ],
+            Text(
+              contacts['address'],
+              style: TextStyle(
+                fontSize: 30.0,
+              ),
+            ),
+            SizedBox(
+              height: 12.0,
+            ),
+            Text(
+              '${contacts['phone']}',
+              style: TextStyle(
+                fontSize: 40.0,
+                color: Colors.deepPurpleAccent,
+              ),
+            ),
+            SizedBox(
+              height: 12.0,
+            ),
+            IconButton(
+              onPressed: () async {
+                var contactBox = Hive.box('testBox');
+                 contactBox
+                  ..deleteAt(contacts['index']);
+                Navigator.pop(context, {
+                  'changed': true
+                });
+              },
+              icon: Icon(
+                Icons.delete,
+                color: Colors.purple[600],
+              ),
+
+            ),
+            SizedBox(
+              height: 12.0,
+            ),
+            Divider(
+              height: 2.0,
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => showModalBottomSheet(

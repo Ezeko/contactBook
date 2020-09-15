@@ -21,7 +21,10 @@ class _HomeState extends State<Home> {
         centerTitle: true,
       ),
       body: FutureBuilder(
-        future: Hive.openBox('testBox'),
+        future: Hive.openBox('testBox',
+            compactionStrategy: (int total, int deleted) {
+          return deleted > 20;
+        }),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
@@ -94,5 +97,12 @@ class _HomeState extends State<Home> {
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    Hive.box('testBox').compact();
+    Hive.close();
+    super.dispose();
   }
 }
