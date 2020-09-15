@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class Detail extends StatefulWidget {
   @override
@@ -25,46 +26,55 @@ class _DetailState extends State<Detail> {
           SizedBox(
             height: 12.0,
           ),
-
           Text(
             contacts['name'],
-            style: TextStyle(
-              fontSize: 40.0,
-              color: Colors.purple[700]
-            ),
+            style: TextStyle(fontSize: 40.0, color: Colors.purple[700]),
           ),
-
           Divider(),
-
-          SizedBox( 
+          SizedBox(
             height: 12.0,
           ),
-
           Text(
             contacts['address'],
             style: TextStyle(
               fontSize: 30.0,
             ),
           ),
-
-          SizedBox( 
+          SizedBox(
             height: 12.0,
           ),
-
           Text(
             '${contacts['phone']}',
             style: TextStyle(
               fontSize: 40.0,
               color: Colors.deepPurpleAccent,
             ),
-
           ),
-
+          SizedBox(
+            height: 12.0,
+          ),
+          RaisedButton.icon(
+            onPressed: () async {
+              var contactBox = Hive.box('testBox');
+               contactBox
+                ..deleteAt(contacts['index']);
+              Navigator.pop(context, {
+                'changed': true
+              });
+            },
+            icon: Icon(
+              Icons.delete,
+              color: Colors.purple[300],
+            ),
+            label: Text(''),
+            color: Colors.white,
+          ),
+          SizedBox(
+            height: 12.0,
+          ),
           Divider(
             height: 2.0,
-          )
-
-
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -77,6 +87,7 @@ class _DetailState extends State<Detail> {
         ),
         backgroundColor: Colors.purple[800],
       ),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
   }
 }

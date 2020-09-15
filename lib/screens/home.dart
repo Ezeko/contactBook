@@ -1,6 +1,7 @@
 //import 'package:contactBook/components/contactForm.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -27,43 +28,52 @@ class _HomeState extends State<Home> {
               return Text(snapshot.error.toString());
             } else {
               final contacts = Hive.box('testBox');
-              return ListView.builder(
-                  itemCount: contacts.length,
-                  itemBuilder: (context, index) {
-                    final contact = contacts.getAt(index);
-                    return Padding(
-                      padding: const EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
-                      child: Card(
-                        child: ListTile(
-                          //contentPadding: EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
-                          onTap: () => Navigator.pushNamed(context, '/detail',
-                              arguments: {
-                                'name': contact.name,
-                                'address': contact.address,
-                                'phone': contact.phone,
-                              }),
-                          title: Text(
-                            contact.name,
-                            style: TextStyle(
-                              color: Colors.blue[700],
-                              fontSize: 19.0,
-                              fontWeight: FontWeight.normal,
+              //watch box builder watches box for chnages then renders the screen
+              //ones there is any change
+              return WatchBoxBuilder(
+                  box: contacts,
+                  builder: (context, contacts) {
+                    return ListView.builder(
+                        itemCount: contacts.length,
+                        itemBuilder: (context, index) {
+                          final contact = contacts.getAt(index);
+                          return Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
+                            child: Card(
+                              child: ListTile(
+                                //contentPadding: EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
+                                onTap: () => Navigator.pushNamed(
+                                    context, '/detail',
+                                    arguments: {
+                                      'name': contact.name,
+                                      'address': contact.address,
+                                      'phone': contact.phone,
+                                      'index': index,
+                                    }),
+                                title: Text(
+                                  contact.name,
+                                  style: TextStyle(
+                                    color: Colors.blue[700],
+                                    fontSize: 19.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  '${contact.phone}',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                leading: Icon(
+                                  Icons.supervised_user_circle,
+                                  size: 33.0,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
                             ),
-                          ),
-                          subtitle: Text(
-                            '${contact.phone}',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                            ),
-                          ),
-                          leading: Icon(
-                            Icons.supervised_user_circle,
-                            size: 33.0,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                      ),
-                    );
+                          );
+                        });
                   });
             }
           } else {
@@ -72,11 +82,14 @@ class _HomeState extends State<Home> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var anyChange = await Navigator.pushNamed(context, '/add');
+        onPressed: () {
+          Navigator.pushNamed(context, '/add');
+          //this can be used if watchbuilder Isn’t in use
+          /*var anyChange = await Navigator.pushNamed(context, '/add');
           setState(() {
             changed = anyChange;
           });
+          */
         },
         child: Icon(Icons.add),
       ),
