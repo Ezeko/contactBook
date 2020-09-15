@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:load/load.dart';
 import '../models/contact.dart';
 import 'package:hive/hive.dart';
 
@@ -10,19 +11,22 @@ class AddContact extends StatefulWidget {
 
 class _AddContactState extends State<AddContact> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+  bool loading;
+  var loader;
+
   void submissionHandler() async {
     if (_fbKey.currentState.saveAndValidate()) {
       Map formValue = _fbKey.currentState.value;
 
-      var box = await Hive.openBox('testBox');
+      dynamic box = await Hive.openBox('testBox');
 
-      var contact = Contact()
+      Contact contact = Contact()
         ..name = formValue['name']
         ..phone = int.parse(formValue['number'])
         ..address = formValue['address'];
 
       await box.add(contact);
-      Navigator.of(context).pop();
+      Navigator.pop(context, {'changed': true});
 
       //print((_fbKey.currentState.value).runtimeType);
     } else {
@@ -66,12 +70,15 @@ class _AddContactState extends State<AddContact> {
               ),
               FormBuilderTextField(
                 attribute: "number",
-                decoration: InputDecoration(labelText: "Phone Number"),
+                decoration: InputDecoration(
+                  labelText: "Phone Number",
+                  hintText: '2348012345678'
+                ),
                 keyboardType: TextInputType.phone,
                 validators: [
                   FormBuilderValidators.required(),
                   FormBuilderValidators.numeric(),
-                  FormBuilderValidators.minLength(11),
+                  FormBuilderValidators.minLength(13),
                 ],
               ),
               SizedBox(
@@ -79,7 +86,7 @@ class _AddContactState extends State<AddContact> {
               ),
               RaisedButton.icon(
                 color: Colors.purple[500],
-                onPressed: () {
+                onPressed: ()  {
                   submissionHandler();
                 },
                 icon: Icon(

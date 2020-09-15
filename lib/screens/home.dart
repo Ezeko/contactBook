@@ -8,6 +8,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  dynamic changed;
   @override
   Widget build(BuildContext context) {
     //var deviceSize = MediaQuery.of(context).size.height / 2;
@@ -35,30 +36,31 @@ class _HomeState extends State<Home> {
                       child: Card(
                         child: ListTile(
                           //contentPadding: EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
-                          onTap: () => Navigator.pushNamed(context, '/detail', arguments: {
-                            'name': contact.name,
-                            'address': contact.address,
-                            'phone': contact.phone,
-                          }),
+                          onTap: () => Navigator.pushNamed(context, '/detail',
+                              arguments: {
+                                'name': contact.name,
+                                'address': contact.address,
+                                'phone': contact.phone,
+                              }),
                           title: Text(
                             contact.name,
                             style: TextStyle(
                               color: Colors.blue[700],
                               fontSize: 19.0,
                               fontWeight: FontWeight.normal,
-                              ),
                             ),
+                          ),
                           subtitle: Text(
                             '${contact.phone}',
                             style: TextStyle(
                               fontSize: 16.0,
                             ),
-                            ),
+                          ),
                           leading: Icon(
                             Icons.supervised_user_circle,
                             size: 33.0,
                             color: Colors.blue[900],
-                            ),
+                          ),
                         ),
                       ),
                     );
@@ -70,8 +72,11 @@ class _HomeState extends State<Home> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/add');
+        onPressed: () async {
+          var anyChange = await Navigator.pushNamed(context, '/add');
+          setState(() {
+            changed = anyChange;
+          });
         },
         child: Icon(Icons.add),
       ),
