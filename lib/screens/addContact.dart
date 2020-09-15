@@ -51,7 +51,10 @@ class _AddContactState extends State<AddContact> {
                 autofocus: true,
                 autovalidate: true,
                 attribute: "name",
-                decoration: InputDecoration(labelText: "Name"),
+                decoration: InputDecoration(
+                  labelText: "Name",
+                  hintText: 'Ezekiel Adejobi'
+                ),
                 keyboardType: TextInputType.name,
                 textCapitalization: TextCapitalization.sentences,
                 validators: [
@@ -61,7 +64,10 @@ class _AddContactState extends State<AddContact> {
               ),
               FormBuilderTextField(
                 attribute: "address",
-                decoration: InputDecoration(labelText: "Address"),
+                decoration: InputDecoration(
+                  labelText: "Address",
+                  hintText: '24, Example Street'
+                ),
                 keyboardType: TextInputType.streetAddress,
                 textCapitalization: TextCapitalization.words,
                 validators: [
