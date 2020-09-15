@@ -22,8 +22,9 @@ class _AddContactState extends State<AddContact> {
         ..address = formValue['address'];
 
       await box.add(contact);
+      Navigator.of(context).pop();
 
-      print(_fbKey.currentState.value);
+      //print((_fbKey.currentState.value).runtimeType);
     } else {
       print('error');
     }
@@ -98,11 +99,5 @@ class _AddContactState extends State<AddContact> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    Hive.close();
-    super.dispose();
   }
 }

@@ -52,7 +52,7 @@ class _DetailState extends State<Detail> {
           ),
 
           Text(
-            '0${contacts['phone']}',
+            '${contacts['phone']}',
             style: TextStyle(
               fontSize: 40.0,
               color: Colors.deepPurpleAccent,
@@ -72,7 +72,9 @@ class _DetailState extends State<Detail> {
             context: context,
             backgroundColor: Colors.transparent,
             builder: (context) => Scaffold()),
-        child: Icon(Icons.mode_edit),
+        child: Icon(
+          Icons.mode_edit,
+        ),
         backgroundColor: Colors.purple[800],
       ),
     );

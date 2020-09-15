@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
               return ListView.builder(
                   itemCount: contacts.length,
                   itemBuilder: (context, index) {
-                    var contact = contacts.getAt(index);
+                    final contact = contacts.getAt(index);
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
                       child: Card(
@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           subtitle: Text(
-                            '0${contact.phone}',
+                            '${contact.phone}',
                             style: TextStyle(
                               fontSize: 16.0,
                             ),
