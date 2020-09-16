@@ -1,3 +1,4 @@
+import 'package:contactBook/models/contact.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -9,6 +10,8 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   Map contacts;
+  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+
   void editHandler() async {
     FocusScope.of(context).unfocus(); //to dismiss keyboard
     if (_fbKey.currentState.saveAndValidate()) {
@@ -17,17 +20,19 @@ class _DetailState extends State<Detail> {
           contacts['address'] == _fbKey.currentState.value['address']) {
         print('the same');
       } else {
-        Map editedContact = _fbKey.currentState.value;
-        var contactBox = Hive.box('testBox');
-        await contactBox.putAt(contacts['index'], editedContact);
-        Navigator.pushNamed(context, '/home');
-      }
+        dynamic box = Hive.box('testBox');
+        Contact editedContact = Contact()
+          ..name = _fbKey.currentState.value['name']
+          ..phone = int.parse(_fbKey.currentState.value['number'])
+          ..address = _fbKey.currentState.value['address'];
 
-      print(contacts['name'] == _fbKey.currentState.value['name']);
+        await box.putAt(contacts['index'], editedContact);
+        await Navigator.pushNamed(context, '/home');
+      }
+    } else {
+      print('error');
     }
   }
-
-  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +170,9 @@ class _DetailState extends State<Detail> {
                                       ],
                                     ),
                                     IconButton(
-                                      onPressed: () => editHandler(),
+                                      onPressed: () => {
+                                        editHandler()
+                                      },
                                       icon: Icon(Icons.save,
                                           size: 34.0,
                                           color: Colors.purple[900]),
