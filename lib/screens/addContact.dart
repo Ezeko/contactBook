@@ -15,6 +15,7 @@ class _AddContactState extends State<AddContact> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
   void submissionHandler() async {
+    FocusScope.of(context).unfocus(); //to dismiss keyboard
     if (_fbKey.currentState.saveAndValidate()) {
       Map formValue = _fbKey.currentState.value;
 

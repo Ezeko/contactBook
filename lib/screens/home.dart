@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
                           final contact = contacts.getAt(index);
                           return Padding(
                             padding:
-                                const EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
+                                const EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 0),
                             child: Card(
                               child: ListTile(
                                 //contentPadding: EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0),
