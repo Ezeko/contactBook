@@ -42,7 +42,8 @@ class _DetailState extends State<Detail> {
           ..address = _fbKey.currentState.value['address'];
 
         await box.putAt(contacts['index'], editedContact);
-        await Navigator.pushNamed(context, '/home');
+        await Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        //await Navigator.pushNamed(context, '/home');
       }
     } else {
       print('error');
