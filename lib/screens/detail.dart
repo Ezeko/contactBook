@@ -1,5 +1,6 @@
 import 'package:contactBook/models/contact.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -10,7 +11,17 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   Map contacts;
+  bool showSnacks = false;
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+  final snackBar = SnackBar(
+    content: Text('Oops! Nothing was changed!'),
+    action: SnackBarAction(
+      label: 'Undo',
+      onPressed: () {
+        // Some code to undo the change.
+      },
+    ),
+  );
 
   void editHandler() async {
     FocusScope.of(context).unfocus(); //to dismiss keyboard
@@ -18,7 +29,11 @@ class _DetailState extends State<Detail> {
       if (contacts['name'] == _fbKey.currentState.value['name'] &&
           contacts['phone'] == int.parse(_fbKey.currentState.value['number']) &&
           contacts['address'] == _fbKey.currentState.value['address']) {
-        print('the same');
+        setState(() {
+          showSnacks = true;
+        });
+        print('The same');
+        print(showSnacks);
       } else {
         dynamic box = Hive.box('testBox');
         Contact editedContact = Contact()
@@ -110,9 +125,9 @@ class _DetailState extends State<Detail> {
               PageRouteBuilder(
                   opaque: false,
                   pageBuilder: (BuildContext context, __, ___) {
-                    return new Scaffold(
+                    return Scaffold(
                       backgroundColor: Colors.black45,
-                      body: new Container(
+                      body: Container(
                           margin: EdgeInsetsDirectional.only(
                               top: 60.0, end: 13.0, bottom: 50.0, start: 13.0),
                           color: Colors.white,
@@ -170,13 +185,15 @@ class _DetailState extends State<Detail> {
                                       ],
                                     ),
                                     IconButton(
-                                      onPressed: () => {
-                                        editHandler()
-                                      },
+                                      onPressed: () => {editHandler()},
                                       icon: Icon(Icons.save,
                                           size: 34.0,
                                           color: Colors.purple[900]),
-                                    )
+                                    ),
+                                    showSnacks
+                                        ? Scaffold.of(context)
+                                            .showSnackBar(snackBar)
+                                        : Text(''),
                                   ],
                                 ),
                               ),
