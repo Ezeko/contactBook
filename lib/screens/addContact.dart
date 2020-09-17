@@ -86,6 +86,7 @@ class _AddContactState extends State<AddContact> {
                   FormBuilderValidators.required(),
                   FormBuilderValidators.numeric(),
                   FormBuilderValidators.minLength(13),
+                  FormBuilderValidators.maxLength(15),
                 ],
               ),
               SizedBox(
