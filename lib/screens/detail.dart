@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Detail extends StatefulWidget {
   @override
@@ -42,7 +43,8 @@ class _DetailState extends State<Detail> {
           ..address = _fbKey.currentState.value['address'];
 
         await box.putAt(contacts['index'], editedContact);
-        await Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        await Navigator.pushNamedAndRemoveUntil(
+            context, '/home', (route) => false);
         //await Navigator.pushNamed(context, '/home');
       }
     } else {
@@ -99,17 +101,32 @@ class _DetailState extends State<Detail> {
             SizedBox(
               height: 12.0,
             ),
-            IconButton(
-              onPressed: () async {
-                var contactBox = Hive.box('testBox');
-                contactBox..deleteAt(contacts['index']);
-                Navigator.pop(context, {'changed': true});
-              },
-              icon: Icon(
-                Icons.delete,
-                color: Colors.purple[600],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(118.0, 0.0, 0, 0),
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                onPressed: () async {
+                  var contactBox = Hive.box('testBox');
+                  contactBox..deleteAt(contacts['index']);
+                  Navigator.pop(context, {'changed': true});
+                },
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.purple[600],
+                ),
+              ),
+              IconButton(
+                icon: Icon(Icons.call),
+                color: Colors.green[700],
+                onPressed: () {
+                  launch("tel://${contacts['phone']}");
+                },
+              ),
+                ],
               ),
             ),
+            
             SizedBox(
               height: 12.0,
             ),
@@ -191,6 +208,7 @@ class _DetailState extends State<Detail> {
                                           size: 34.0,
                                           color: Colors.purple[900]),
                                     ),
+                                    
                                     showSnacks
                                         ? Scaffold.of(context)
                                             .showSnackBar(snackBar)
