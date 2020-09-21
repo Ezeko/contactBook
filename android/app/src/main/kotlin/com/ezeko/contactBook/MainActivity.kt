@@ -1,4 +1,4 @@
-package com.example.contactBook
+package com.ezeko.contactBook
 
 import io.flutter.embedding.android.FlutterActivity
 

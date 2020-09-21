@@ -51,9 +51,9 @@ class _AddContactState extends State<AddContact> {
               FormBuilderTextField(
                 autofocus: true,
                 autovalidate: true,
-                attribute: "name",
+                attribute: 'name',
                 decoration: InputDecoration(
-                  labelText: "Name",
+                  labelText: 'Name',
                   hintText: 'Ezekiel Adejobi'
                 ),
                 keyboardType: TextInputType.name,
@@ -64,9 +64,9 @@ class _AddContactState extends State<AddContact> {
                 autofillHints: null,
               ),
               FormBuilderTextField(
-                attribute: "address",
+                attribute: 'address',
                 decoration: InputDecoration(
-                  labelText: "Address",
+                  labelText: 'Address',
                   hintText: '24, Example Street'
                 ),
                 keyboardType: TextInputType.streetAddress,
@@ -76,9 +76,9 @@ class _AddContactState extends State<AddContact> {
                 ],
               ),
               FormBuilderTextField(
-                attribute: "number",
+                attribute: 'number',
                 decoration: InputDecoration(
-                  labelText: "Phone Number",
+                  labelText: 'Phone Number',
                   hintText: '2348012345678'
                 ),
                 keyboardType: TextInputType.phone,

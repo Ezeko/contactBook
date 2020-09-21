@@ -171,30 +171,30 @@ class _DetailState extends State<Detail> {
                                   children: <Widget>[
                                     FormBuilderTextField(
                                       autovalidate: true,
-                                      attribute: "name",
+                                      attribute: 'name',
                                       initialValue: contacts['name'],
                                       decoration:
-                                          InputDecoration(labelText: "Name"),
+                                          InputDecoration(labelText: 'Name'),
                                       keyboardType: TextInputType.name,
                                       validators: [
                                         FormBuilderValidators.required(),
                                       ],
                                     ),
                                     FormBuilderTextField(
-                                      attribute: "address",
+                                      attribute: 'address',
                                       initialValue: contacts['address'],
                                       decoration:
-                                          InputDecoration(labelText: "Address"),
+                                          InputDecoration(labelText: 'Address'),
                                       keyboardType: TextInputType.streetAddress,
                                       validators: [
                                         FormBuilderValidators.required(),
                                       ],
                                     ),
                                     FormBuilderTextField(
-                                      attribute: "number",
+                                      attribute: 'number',
                                       initialValue: '${contacts['phone']}',
                                       decoration: InputDecoration(
-                                          labelText: "Phone Number"),
+                                          labelText: 'Phone Number'),
                                       keyboardType: TextInputType.phone,
                                       validators: [
                                         FormBuilderValidators.required(),

@@ -21,8 +21,8 @@ class _ContactFormState extends State<ContactForm> {
               FormBuilderTextField(
                 autofocus: true,
                 autovalidate: true,
-                attribute: "name",
-                decoration: InputDecoration(labelText: "Name"),
+                attribute: 'name',
+                decoration: InputDecoration(labelText: 'Name'),
                 keyboardType: TextInputType.name,
                 validators: [
                   FormBuilderValidators.required(),
@@ -30,8 +30,8 @@ class _ContactFormState extends State<ContactForm> {
               ),
 
               FormBuilderTextField(
-                attribute: "address",
-                decoration: InputDecoration(labelText: "Address"),
+                attribute: 'address',
+                decoration: InputDecoration(labelText: 'Address'),
                 keyboardType: TextInputType.streetAddress,
                 validators: [
                   FormBuilderValidators.required(),
@@ -39,8 +39,8 @@ class _ContactFormState extends State<ContactForm> {
               ),
 
               FormBuilderTextField(
-                attribute: "number",
-                decoration: InputDecoration(labelText: "Phone Number"),
+                attribute: 'number',
+                decoration: InputDecoration(labelText: 'Phone Number'),
                 keyboardType: TextInputType.phone,
                 validators: [
                   FormBuilderValidators.required(),
