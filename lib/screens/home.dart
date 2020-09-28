@@ -33,9 +33,9 @@ class _HomeState extends State<Home> {
               final contacts = Hive.box('testBox');
               //watch box builder watches box for chnages then renders the screen
               //ones there is any changes in the box
-              return WatchBoxBuilder(
-                  box: contacts,
-                  builder: (context, contacts) {
+              return ValueListenableBuilder(
+                  valueListenable: contacts.listenable(),
+                  builder: (context, contacts, widget) {
                     return ListView.builder(
                         itemCount: contacts.length,
                         itemBuilder: (context, index) {

@@ -170,7 +170,7 @@ class _DetailState extends State<Detail> {
                                 child: Column(
                                   children: <Widget>[
                                     FormBuilderTextField(
-                                      autovalidate: true,
+                                      
                                       attribute: 'name',
                                       initialValue: contacts['name'],
                                       decoration:

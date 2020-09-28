@@ -50,7 +50,6 @@ class _AddContactState extends State<AddContact> {
             children: <Widget>[
               FormBuilderTextField(
                 autofocus: true,
-                autovalidate: true,
                 attribute: 'name',
                 decoration: InputDecoration(
                   labelText: 'Name',
