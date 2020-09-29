@@ -10,6 +10,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   dynamic changed;
+
+  @override
+  void dispose() {
+    Hive.box('testBox').compact();
+    Hive.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     //var deviceSize = MediaQuery.of(context).size.height / 2;
@@ -97,12 +105,5 @@ class _HomeState extends State<Home> {
         child: Icon(Icons.add),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    Hive.box('testBox').compact();
-    Hive.close();
-    super.dispose();
   }
 }

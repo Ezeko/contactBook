@@ -13,7 +13,6 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   Map contacts;
   bool showSnacks = false;
-  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   final snackBar = SnackBar(
     content: Text('Oops! Nothing was changed!'),
     action: SnackBarAction(
@@ -23,6 +22,9 @@ class _DetailState extends State<Detail> {
       },
     ),
   );
+
+
+  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
   void editHandler() async {
     FocusScope.of(context).unfocus(); //to dismiss keyboard
