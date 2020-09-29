@@ -92,7 +92,7 @@ class _AddContactState extends State<AddContact> {
                 height: 10.0,
               ),
               RaisedButton.icon(
-                color: Colors.purple[500],
+                color: Colors.blue[500],
                 onPressed: ()  {
                   submissionHandler();
                 },

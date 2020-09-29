@@ -1,9 +1,9 @@
 import 'package:contactBook/models/contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Detail extends StatefulWidget {
   @override
@@ -33,8 +33,8 @@ class _DetailState extends State<Detail> {
         setState(() {
           showSnacks = true;
         });
-        print('The same');
-        print(showSnacks);
+        //print('The same');
+        //print(showSnacks);
       } else {
         dynamic box = Hive.box('testBox');
         Contact editedContact = Contact()
@@ -43,12 +43,14 @@ class _DetailState extends State<Detail> {
           ..address = _fbKey.currentState.value['address'];
 
         await box.putAt(contacts['index'], editedContact);
-        await Navigator.pushNamedAndRemoveUntil(
-            context, '/home', (route) => false);
-        //await Navigator.pushNamed(context, '/home');
+        Navigator.pop(context, {'changed': true});
+        Navigator.pop(context, {'changed': true});
+        /*await Navigator.pushNamedAndRemoveUntil(
+            context, '/home', (route) => false);*/
+        //await Navigator.pushReplacementNamed(context, '/home');
       }
     } else {
-      print('error');
+      //print('error');
     }
   }
 
@@ -69,14 +71,14 @@ class _DetailState extends State<Detail> {
         padding: const EdgeInsets.fromLTRB(28.0, 12.0, 0, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
               height: 12.0,
             ),
             Text(
               contacts['name'],
-              style: TextStyle(fontSize: 40.0, color: Colors.purple[700]),
+              style: TextStyle(fontSize: 40.0, color: Colors.blue[700]),
             ),
             Divider(),
             SizedBox(
@@ -94,8 +96,8 @@ class _DetailState extends State<Detail> {
             Text(
               '${contacts['phone']}',
               style: TextStyle(
-                fontSize: 40.0,
-                color: Colors.deepPurpleAccent,
+                fontSize: 20.0,
+                color: Colors.blue[900],
               ),
             ),
             SizedBox(
@@ -106,27 +108,26 @@ class _DetailState extends State<Detail> {
               child: Row(
                 children: <Widget>[
                   IconButton(
-                onPressed: () async {
-                  var contactBox = Hive.box('testBox');
-                  contactBox..deleteAt(contacts['index']);
-                  Navigator.pop(context, {'changed': true});
-                },
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.purple[600],
-                ),
-              ),
-              IconButton(
-                icon: Icon(Icons.call),
-                color: Colors.green[700],
-                onPressed: () {
-                  launch("tel://${contacts['phone']}");
-                },
-              ),
+                    onPressed: () async {
+                      var contactBox = Hive.box('testBox');
+                      contactBox..deleteAt(contacts['index']);
+                      Navigator.pop(context, {'changed': true});
+                    },
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.blue[600],
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.call),
+                    color: Colors.green[700],
+                    onPressed: () async {
+                      FlutterPhoneDirectCaller.callNumber('${contacts['phone']}');
+                    },
+                  ),
                 ],
               ),
             ),
-            
             SizedBox(
               height: 12.0,
             ),
@@ -144,7 +145,7 @@ class _DetailState extends State<Detail> {
                   opaque: false,
                   pageBuilder: (BuildContext context, __, ___) {
                     return Scaffold(
-                      backgroundColor: Colors.black45,
+                      backgroundColor: Colors.blue,
                       body: Container(
                           margin: EdgeInsetsDirectional.only(
                               top: 60.0, end: 13.0, bottom: 50.0, start: 13.0),
@@ -155,9 +156,10 @@ class _DetailState extends State<Detail> {
                             IconButton(
                                 icon: Icon(
                                   Icons.cancel,
-                                  color: Colors.purple[900],
+                                  color: Colors.blue[900],
                                 ),
                                 onPressed: () {
+                                  //exit keyboard
                                   FocusScope.of(context).unfocus();
                                   Navigator.pop(context);
                                 }),
@@ -170,7 +172,6 @@ class _DetailState extends State<Detail> {
                                 child: Column(
                                   children: <Widget>[
                                     FormBuilderTextField(
-                                      
                                       attribute: 'name',
                                       initialValue: contacts['name'],
                                       decoration:
@@ -205,10 +206,8 @@ class _DetailState extends State<Detail> {
                                     IconButton(
                                       onPressed: () => {editHandler()},
                                       icon: Icon(Icons.save,
-                                          size: 34.0,
-                                          color: Colors.purple[900]),
+                                          size: 34.0, color: Colors.blue[900]),
                                     ),
-                                    
                                     showSnacks
                                         ? Scaffold.of(context)
                                             .showSnackBar(snackBar)
@@ -224,7 +223,7 @@ class _DetailState extends State<Detail> {
         child: Icon(
           Icons.mode_edit,
         ),
-        backgroundColor: Colors.purple[800],
+        backgroundColor: Colors.blue[800],
       ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
