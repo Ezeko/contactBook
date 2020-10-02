@@ -23,7 +23,6 @@ class _DetailState extends State<Detail> {
     ),
   );
 
-
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
   void editHandler() async {
@@ -62,6 +61,7 @@ class _DetailState extends State<Detail> {
     if (contacts == null) {
       contacts = ModalRoute.of(context).settings.arguments;
     }
+
     //print(contacts);
     //contacts = contacts.isNotEmpty ? contacts : ModalRoute.of(context).settings.arguments;
 
@@ -124,7 +124,8 @@ class _DetailState extends State<Detail> {
                     icon: Icon(Icons.call),
                     color: Colors.green[700],
                     onPressed: () async {
-                      FlutterPhoneDirectCaller.callNumber('${contacts['phone']}');
+                      FlutterPhoneDirectCaller.callNumber(
+                          '${contacts['phone']}');
                     },
                   ),
                 ],

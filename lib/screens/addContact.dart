@@ -78,13 +78,13 @@ class _AddContactState extends State<AddContact> {
                 attribute: 'number',
                 decoration: InputDecoration(
                   labelText: 'Phone Number',
-                  hintText: '2348012345678'
+                  hintText: '08012345678'
                 ),
                 keyboardType: TextInputType.phone,
                 validators: [
                   FormBuilderValidators.required(),
                   FormBuilderValidators.numeric(),
-                  FormBuilderValidators.minLength(13),
+                  FormBuilderValidators.minLength(11),
                   FormBuilderValidators.maxLength(15),
                 ],
               ),

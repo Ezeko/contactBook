@@ -48,6 +48,10 @@ class _HomeState extends State<Home> {
                         itemCount: contacts.length,
                         itemBuilder: (context, index) {
                           final contact = contacts.getAt(index);
+                          var number =
+                              ((contact.phone).toString()).length < 11
+                                  ? '0${contact.phone}'
+                                  : '+${contact.phone}';
                           return Padding(
                             padding:
                                 const EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 0),
@@ -59,7 +63,7 @@ class _HomeState extends State<Home> {
                                     arguments: {
                                       'name': contact.name,
                                       'address': contact.address,
-                                      'phone': contact.phone,
+                                      'phone': number,
                                       'index': index,
                                     }),
                                 title: Text(
@@ -71,7 +75,7 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  '${contact.phone}',
+                                  number,
                                   style: TextStyle(
                                     fontSize: 16.0,
                                   ),
